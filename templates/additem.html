@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{%block title%}add item {%endblock%}
+{%block content%}
+<div class="container">
+    <div class="add-food-form">
+        <h2>Add New Food Item</h2>
+        <form action="/additem" method="post">
+            <input type="text" name="name" placeholder="Food Name" required><br>
+            <input type="number" name="protein" placeholder="Protein (g)" required><br>
+            <input type="number" name="carbs" placeholder="Carbs (g)" required><br>
+            <input type="number" name="fats" placeholder="Fats (g)" required><br>
+            <input type="submit" value="Add Food">
+        </form>
+    </div>
+    <h1>Food List</h1>
+    {% set total_calories = 0 %}
+    {%for item in result %}
+        <div class="food-item">
+            <h2>{{ item.name }}</h2>
+            {% set total_calories = item.protein + item.carbs  + item.fats%}
+
+            <p>Protein: {{ item.protein}}g, Carbs: {{ item.carbs}}g, Fats: {{ item.fats }}g, Total: {{total_calories}} </p>
+        </div>
+    {% endfor %}
+    </div>
+{%endblock content%}

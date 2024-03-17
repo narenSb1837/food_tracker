@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{%block title%}View Details {%endblock%}
+{%block content%}
+
+<div class="container mt-5">
+  <h1>Select a Food to add</h1>
+  <form action="/viewdetails/{{date}}" method="POST">
+      <div class="form-group">
+          <label for="foodSelect">Choose a food:</label>
+          <select class="form-control" id="foodSelect" name="food">
+              {% for food in food_names %}
+              <option>{{ food['name'] }}</option>
+              {% endfor %}
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
+
+<h1>Food List</h1>
+<div class="row">
+
+  {% for food in food_list %}
+  <div class="col-md-4 mb-4">
+      <div class="card">
+          <div class="card-body">
+              <h5 class="card-title">{{ food['name'] }}</h5>
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Carbs: {{ food['carbs'] }}g</li>
+                  <li class="list-group-item">Protein: {{ food['protein'] }}g</li>
+                  <li class="list-group-item">Fats: {{ food['fats'] }}g</li>
+                  {% set calories = food['protein'] + food['carbs'] + food['fats'] %}
+                  <li class="list-group-item">Total: {{ calories }}g</li>
+              </ul>
+          </div>
+      </div>
+  </div>
+
+  {% endfor %}
+  
+  <!-- Display total calories below the food items -->
+  <div class="col-md-12 mt-4">
+      <div class="alert alert-info" role="alert">
+          Total Calories: {{ total_calories }} kcal
+      </div>
+  </div>
+
+</div>
+</div>
+<!-- Bootstrap JS script (optional, for dropdown functionality) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{%endblock content%}
